@@ -5,18 +5,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/gothchibjo/okdesk-go/internal/models"
+	"github.com/gothchibjo/okdesk-go/okdesk/models"
 )
-
-// GetIssuesList retrieves a list of issues with optional filters.
-func (c *Client) GetIssuesList(ctx context.Context, filters map[string]string) ([]models.Issue, error) {
-	var issues []models.Issue
-	err := c.request(ctx, http.MethodGet, "/api/v1/issues/list", filters, &issues)
-	if err != nil {
-		return nil, err
-	}
-	return issues, nil
-}
 
 // GetIssue retrieves a single issue by ID.
 func (c *Client) GetIssue(ctx context.Context, issueID int) (*models.Issue, error) {
@@ -26,4 +16,14 @@ func (c *Client) GetIssue(ctx context.Context, issueID int) (*models.Issue, erro
 		return nil, err
 	}
 	return &issue, nil
+}
+
+// GetIssuesList retrieves a list of issues with optional filters.
+func (c *Client) GetIssuesList(ctx context.Context, filters map[string]string) ([]models.Issue, error) {
+	var issues []models.Issue
+	err := c.request(ctx, http.MethodGet, "/api/v1/issues/list", filters, &issues)
+	if err != nil {
+		return nil, err
+	}
+	return issues, nil
 }
